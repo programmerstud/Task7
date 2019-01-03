@@ -22,7 +22,7 @@ namespace MarketCharts.Data
             using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(path)))
              {
                  var myWorksheet = xlPackage.Workbook.Worksheets[1];
-                 var totalRows = myWorksheet. Dimension.End.Row;
+                 var totalRows = myWorksheet.Dimension.End.Row;
                  var totalColumns = myWorksheet.Dimension.End.Column;
 
                  for (int rowNum = 2; rowNum <= totalRows; rowNum++)
