@@ -80,12 +80,6 @@ namespace MarketCharts
 
         private void LoadData(ILoadData data)
         {
-            if (this.MonitorLogic != null)
-            {
-                MonitorLogic.DisposeThread();
-                MonitorLogic = null;
-            }
-
             MonitorLogic = new MarketLogic(data, new BollingerBands());
             MonitorLogic.OnReceiveCandle += OnCandleReceived;
 
@@ -106,6 +100,7 @@ namespace MarketCharts
             {
                 candlesCount++;
                 ohlcSeries.Append(candle.Time, (double)candle.Open, (double)candle.High, (double)candle.Low, (double)candle.Close);
+                StockChart.XAxis.VisibleRange = new IndexRange(candlesCount - 50, candlesCount);
 
                 if (indicatorValue1 != null)
                     BBMiddleSeries.Append(candle.Time, indicatorValue1.Value);
@@ -113,8 +108,6 @@ namespace MarketCharts
                     BBUpperSeries.Append(candle.Time, indicatorValue2.Value);
                 if (indicatorValue3 != null)
                     BBLowerSeries.Append(candle.Time, indicatorValue3.Value);
-
-                StockChart.XAxis.VisibleRange = new IndexRange(candlesCount - 50, candlesCount);
             }
         }
     }

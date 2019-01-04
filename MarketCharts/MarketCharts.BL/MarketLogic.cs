@@ -12,9 +12,6 @@ namespace MarketCharts.BL
     {
         public delegate void ReceiveCandleEvent(Candle candle, double? indicatorMiddleValue1, double? indicatorUpperValue2, double? indicatorLowerValue3);
         public event ReceiveCandleEvent OnReceiveCandle;
-
-        private ILoadData dataInfo;
-        private IIndicator indicator;
         private Thread Thread;
 
         private Queue<Candle> Candles;
@@ -24,9 +21,6 @@ namespace MarketCharts.BL
 
         public MarketLogic(ILoadData dataInfo, IIndicator indicator)
         {
-            this.dataInfo = dataInfo;
-            this.indicator = indicator;
-
             Candles = dataInfo.Candles();
             indicator.Calculator(Candles);
             BBMiddle = indicator.BBMiddle;
